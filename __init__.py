@@ -58,7 +58,7 @@ class BBCNewsSkill(MycroftSkill):
 
     def __init__(self):
 
-        super(BBCNewsSkill, self).__init__(name="BBCNewsSkill")
+        super(EWNNewsSkill, self).__init__(name="EWNNewsSkill")
 
         self.process = None
 
@@ -66,9 +66,9 @@ class BBCNewsSkill(MycroftSkill):
 
     def initialize(self):
 
-        intent = IntentBuilder("BBCNewsIntent").require(
+        intent = IntentBuilder("EWNNewsIntent").require(
 
-            "BBCNewsKeyword").build()
+            "EWNNewsKeyword").build()
 
         self.register_intent(intent, self.handle_intent)
 
@@ -80,9 +80,9 @@ class BBCNewsSkill(MycroftSkill):
 
 
 
-            data = feedparser.parse("http://feeds.bbci.co.uk/news/rss.xml")
+            data = feedparser.parse("http://ewn.co.za/RSS%20Feeds/Latest%20News.xml")
 
-            self.speak_dialog('bbc.news')
+            self.speak_dialog('EWN.news')
 
             time.sleep(5)
 
@@ -106,7 +106,7 @@ class BBCNewsSkill(MycroftSkill):
 
         if self.process and self.process.poll() is None:
 
-            self.speak_dialog('bbc.news.stop')
+            self.speak_dialog('EWN.news.stop')
 
             self.process.terminate()
 
